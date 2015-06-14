@@ -6,9 +6,9 @@ import sys
 import os
 import math
 from progressbar import ProgressBar
-from graph_tool.all import *
-
-
+import networkx as nx
+import matplotlib.pyplot as pyplot
+import numpy as np
 
 root_dir = '/media/lfdorelli/Data/Mestrado/Twitter/'
 
@@ -66,24 +66,65 @@ def gen_network(file, perc=100):
 		except:
 			continue
 
+	print "Looking at hashtags"
 	# Send the result back as a networkx graph
-	G = Graph()
+	G = nx.Graph()
 	idx = 0
 	for hashtag in hashtags.keys():
-		# G.add_node(hashtag)
- 		G.add_vertex()
+		G.add_node(hashtag)
+ 		# G.add_vertex()
  		hashtag_idx[hashtag] = idx
  		idx += 1
 
- 	e_prop = G.new_edge_property("double")
+ 	print "Generating edges"
  	# Generate the edges
 	for hashtag in hashtags:
 		for neigh in hashtags[hashtag]:
-			# G.add_edge(hashtag, neigh, weight=float(1.0/hashtags[hashtag][neigh]))
-			G.add_edge(G.vertex(hashtag_idx[hashtag]), G.vertex(hashtag_idx[neigh]))
-			e_prop[G.edge(G.vertex(hashtag_idx[hashtag]), G.vertex(hashtag_idx[neigh]))] = float(1.0/hashtags[hashtag][neigh])
-	return G, e_prop, user_tags, hashtag_idx
+			G.add_edge(hashtag, neigh, weight=float(1.0/hashtags[hashtag][neigh]))
+	
+	return G, user_tags, hashtag_idx
 
+
+def print_table (G):
+	n = len(G)
+	md = 0
+	cd = 0
+	for nd in G.nodes():
+		md += G.degree(nd)
+		cd += 1
+	md = md/cd
+	# print n, ' & ', md, ' & ',  nx.number_connected_components(G), ' \\\\ '
+	print nx.betweenness_centrality(G)
 
 if __name__ == '__main__':
-	gen_network(root_dir + 'resources/tweets', 3)
+	G, h, f = gen_network(root_dir + 'resources/tweets', 100)
+	# print 'Generating rangom graph ', str(len(G))
+	# GR = nx.fast_gnp_random_graph(len(G), 0.00008)
+	# print 'Generating BA ', str(len(G))
+	# GBA = nx.barabasi_albert_graph(len(G), min(len(G), 2))
+	# # nx.write_gexf(G, root_dir + 'graphs/gexf/hashtag_net.gexf')
+	# print_table(G)
+	# print_table(GR)
+	# print_table(GBA
+
+	hp = {}
+	for user in h:w
+		for hashlist in h[user]:
+			x = len(hashlist)
+			if x in hp:
+				hp[x] += 1
+			else:
+				hp[x] = 1
+
+	bins = []
+	v = []
+	for x in hp:
+		bins.append(x)
+		v.append(hp[x])
+
+	pyplot.loglog(bins, v, color='green')
+	pyplot.xlabel(r'Hashtags/Post', fontsize='xx-large')
+	pyplot.ylabel(r'Frequencia', fontsize='xx-large')
+	# pyplot.axis([0, 100, 0, 300000])
+	pyplot.grid(True)
+	pyplot.show()

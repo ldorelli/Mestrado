@@ -18,11 +18,30 @@ class StdOutListener(StreamListener):
         self.count = 0;
     
     def on_data(self, data):
-        print(data)
+        filt = json.loads(data)
+        data = {}
+
+        if 'created_at' in filt:
+            data['date'] = filt['created_at']
+        if 'user' in filt:
+            data['user'] = filt['user']['screen_name']
+        if 'entities' in filt:
+            if 'hashtags' in filt['entities']:
+                shared_tags = []
+                for hashtag in filt['entities']['hashtags']:
+                    shared_tags.append(hashtag['text'])
+                data['hashtags'] = shared_tags
+            if 'user_mentions' in filt['entities']:
+                data['mentions'] = []
+                for mentioned in filt['entities']['user_mentions']:
+                    data['mentions'].append(mentioned['screen_name'])
+
+        print json.dumps(data)
+
         return True
 
     def on_error(self, status):
-        print(status)
+    	print(status)
 
 
 if __name__ == '__main__':
