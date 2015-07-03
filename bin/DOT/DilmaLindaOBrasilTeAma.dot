@@ -1,0 +1,6 @@
+strict digraph {
+"MST_Oficial" -> "burguesemcrise"
+"ptbrasil" -> "burguesemcrise"
+"cutnacional" -> "burguesemcrise"
+"portalvermelho" -> "burguesemcrise"
+}

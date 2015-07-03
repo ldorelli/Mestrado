@@ -6,6 +6,7 @@
 #include <queue> 
 #include <deque>
 #include <functional>
+#include <DisjointSet.hpp>
 #include <Json.hpp>
 
 namespace snet {
@@ -188,17 +189,41 @@ public:
 	 void addHashtags(Json::Value tweet);
 	 
 	 /**
-	  * Loads the user from a Tweet and all the mentions 
+	  * Loads the user from a Tweet and all the mentions into the network.
 	  * @param json The json string cointaining a Tweet.
+	  * @param direction The direction of the edges
 	  */
-	  void loadMentions(Json::Value tweet);
+	  void loadMentions(Json::Value& tweet, bool direction);
+	  void loadMentions(bool direction);
+
+	  /*
+	   * Calculates tie strenght as Jaccard Distance
+	   */
+	  void topologicalTieStrenght();
+
+	  /*
+	   * Writes Network to .dot format
+	   * @param filename: The name of the target file.
+	   */
+	  void writeDotFormat(std::string filename);
+
+	  /*
+	   * Calculates the connected component for each node.
+	   * The result is a DisjointSet. largestCC contains the 
+	   * index of the largest component.
+	   */
+	  void genComponents();
 
 public: 
+	DisjointSet cc;
+	int largestCC;
 	// A subset vector, indicating the current set a node belongs to. 
-	std::vector<int> subs; 
+	std::vector<int> subs, vis;
+	std::vector< std::vector<double> > tieStrenght;
+	// Reverse index for nodes
+	std::vector<std::string> rNodeIndex;
 	// Node names
 	std::map<std::string, int> nodes;
-
 	// Special list of edges of the network, indexable
 	std::map <int, std::map<int, double> > EE;
 	// Edges of the network
@@ -206,10 +231,9 @@ public:
 	// Edge weights of the network
 	std::deque< std::vector<double> >	W; 
 	// Number of nodes (E.size() should be equal to this)
-	int n_nodes; 
+	int n_nodes, n_edges; 
 	// Infinity
 	double inf;
-
 	const double EPS = 1e-7;
 
 	void validateNode(std::string s);

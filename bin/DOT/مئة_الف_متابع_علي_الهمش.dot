@@ -1,0 +1,11 @@
+strict digraph {
+"V_Barak" -> "85Fenkin"
+"V_Barak" -> "bebeschcko"
+"V_Barak" -> "elizavetatarki1"
+"V_Barak" -> "3Bolbekova2016"
+"V_Munther" -> "BaninaNicka"
+"V_Munther" -> "LeonidMazcko"
+"V_Munther" -> "gurskaya2016"
+"V_Munther" -> "FerginaNatasha"
+"V_Munther" -> "bebeschcko"
+}

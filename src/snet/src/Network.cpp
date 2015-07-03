@@ -7,6 +7,7 @@
 snet::Network::Network() {	
 	n_nodes = 0;
 	inf = 1e9;
+	n_edges = 0;
 }
 
 int snet::Network::size () {
@@ -26,6 +27,7 @@ void snet::Network::addNode(std::string name) {
 		return;
 	}
 	nodes[name] = n_nodes++;
+	rNodeIndex.push_back(name);
 	E.push_back(std::vector<int>());
 	W.push_back(std::vector<double>());
 }
@@ -54,12 +56,14 @@ void snet::Network::validateNode(std::string s) {
 void snet::Network::addIEdge(int s, int t, double w) {
 	validateNode(s);
 	EE[s][t] += w;
+	n_edges++;
 }
 
 void snet::Network::addEdge(int s, int t, double w) {
 	validateNode(s);
 	E[s].push_back(t);
 	W[s].push_back(t);
+	n_edges++;
 }
 
 
@@ -150,7 +154,6 @@ bool snet::Network::isInf(double val) {
 
 double snet::Network::attentionIndex(std::vector<std::vector<int> > O, double inf) {
 
-
 	changeWeights( [=] (double w) -> double {
 			if (fabs(w) < EPS) {
 				throw "Weight 0";
@@ -204,4 +207,81 @@ void snet::Network::addHashtags(Json::Value root) {
 			addIEdge(tags[i], tags[j], 1);
 		}
 	}
+}
+
+using namespace std;
+void snet::Network::loadMentions(Json::Value& root, bool direction = true) {
+	if (root["user"] == 0) return;
+	std::string user = root["user"]["screen_name"].asString();
+	addNode(user);
+	if (root["entities"] == 0 or root["entities"]["user_mentions"] == 0) return;
+	for (auto mention : root["entities"]["user_mentions"]) {
+		addNode(mention["screen_name"].asString());
+		if (direction) {
+			addEdge(user, mention["screen_name"].asString());
+		} else { 
+			addEdge(mention["screen_name"].asString(), user);
+		}
+	}	
+}
+
+void snet::Network::topologicalTieStrenght() {
+	std::vector <double> ans (nodes.size());
+	
+	for (int i = 0; i < nodes.size(); ++i) {
+		std::set <int> A;
+		tieStrenght.push_back(std::vector<double>());
+		for (int j = 0; j < E[i].size(); ++j) {
+			A.insert(E[i][j]);
+		}
+		for (int j = 0; j < E[i].size(); ++j) {
+			int v = E[i][j];
+			int uni = 0, inter = 0;
+			std::set <int> U = A;
+			std::set <int> I;
+			for (int k = 0; k < E[v].size(); ++k) {
+				int h = E[v][k];
+				U.insert(h);
+				if (A.count(h)) I.insert(h);
+			}
+			uni = U.size();
+			inter = I.size();
+			tieStrenght[i].push_back((double)inter/uni);
+		}
+	} 
+}
+
+void snet::Network::writeDotFormat(std::string filename) {
+	std::ofstream f(filename);
+	f << "strict digraph {\n";
+	genComponents(); 
+	for (int i = 0; i < nodes.size(); ++i) {
+		if (cc.countSet(i) != largestCC) continue;
+		for (int j = 0; j < E[i].size(); ++j) {
+			f << "\"" << rNodeIndex[i] << "\"" << " -> " << "\"" << rNodeIndex[E[i][j]] << "\"" << std::endl;
+		}
+	}
+	f << "}";
+}
+
+void snet::Network::genComponents() {
+	// Lambda DFS call (recall for future :P)
+	// std::function<void (int, int)> dfs = [this] 	(int x, int cur) {
+	// 	cc[x] = cur; 
+	// 	for (int i = 0; i < E.size(); ++i) {
+
+	// 	}
+	// };
+	DisjointSet s(n_nodes);
+	for (int i = 0; i < E.size(); ++i) {
+		for (int j = 0; j < E[i].size(); ++j)
+			s.join(i, E[i][j]);
+	}
+	largestCC = 0; 
+	for (int i = 1; i < E.size(); ++i) {
+		if (s.countSet(i) > s.countSet(largestCC)) largestCC = i;
+	}
+	largestCC = s.countSet(largestCC);
+	cc = s;
+	std::cout << "Largest " << largestCC << std::endl;
 }

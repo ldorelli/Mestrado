@@ -1,3 +1,6 @@
+#ifndef __DISJOINT_HPP__
+#define __DISJOINT_HPP__
+
 #include <vector>
 
 /**
@@ -6,6 +9,8 @@
  namespace snet {
  	class DisjointSet {
  	public:
+
+ 		DisjointSet();
  		/**
  		 *	Creates a new DisjointSet structure with n nodes.
  		 */
@@ -51,3 +56,5 @@
  		int internalFind(int A);
  	};
  }
+
+#endif

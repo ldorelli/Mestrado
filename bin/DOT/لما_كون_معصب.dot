@@ -1,0 +1,15 @@
+strict digraph {
+"IbrahimYusuf90" -> "voroncheva83"
+"IbrahimYusuf90" -> "AdaVaisman"
+"IbrahimYusuf90" -> "bokowina"
+"IbrahimYusuf90" -> "QnEvangelina"
+"OsmanRefat0" -> "kizenkovalexan1"
+"OsmanRefat0" -> "steschina"
+"OsmanRefat0" -> "voroncheva83"
+"OsmanRefat0" -> "prigorsha"
+"V_Saqr" -> "voroncheva83"
+"V_Saqr" -> "Remonovgena3"
+"SyedAttif" -> "tuzinas2015"
+"SyedAttif" -> "4_lyuda2016"
+"SyedAttif" -> "bokowina"
+}

@@ -1,0 +1,16 @@
+strict digraph {
+"SamirAbdullah0" -> "voisheff"
+"SamirAbdullah0" -> "pashuckova"
+"SamirAbdullah0" -> "MarchewaInessa"
+"SyedAttif" -> "MarchewaInessa"
+"SyedAttif" -> "bordonovakater1"
+"V_Heydari" -> "lsudnitsyna1"
+"V_Heydari" -> "Kwet4enkoQc"
+"V_Althawadi" -> "InessaRibka"
+"V_Althawadi" -> "steschina"
+"V_Althawadi" -> "MarchewaInessa"
+"V_Althawadi" -> "lsudnitsyna1"
+"V_AlAzmi" -> "InessaRibka"
+"V_AlAzmi" -> "7hSkukulina"
+"V_AlAzmi" -> "solob4uk"
+}

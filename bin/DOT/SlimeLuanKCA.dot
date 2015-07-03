@@ -1,0 +1,14 @@
+strict digraph {
+"sufoc0lr" -> "sufoc0lr"
+"sufoc0lr" -> "PauloMyPalmito"
+"sufoc0lr" -> "LuanxonadaS2"
+"sufoc0lr" -> "Brunnawwn"
+"sufoc0lr" -> "sorriopelols"
+"justofls" -> "sufoc0lr"
+"justofls" -> "PauloMyPalmito"
+"justofls" -> "LuanxonadaS2"
+"justofls" -> "Manuella_Kurth"
+"justofls" -> "edilenemoura8"
+"my_Life_luanS" -> "Manuella_Kurth"
+"respiroovesgo" -> "edilenemoura8"
+}

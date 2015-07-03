@@ -1,0 +1,11 @@
+strict digraph {
+"Del_Iztapalapa" -> "IgnacioYero"
+"revistaproceso" -> "IgnacioYero"
+"REFORMACOM" -> "IgnacioYero"
+"El_Universal_Mx" -> "IgnacioYero"
+"LegAlboranGDL" -> "LegAlboranGDL"
+"ruthvillalvazo" -> "LegAlboranGDL"
+"Rodriguez_exa" -> "LegAlboranGDL"
+"pabloalboran" -> "LegAlboranGDL"
+"legionalboranmx" -> "LegAlboranGDL"
+}

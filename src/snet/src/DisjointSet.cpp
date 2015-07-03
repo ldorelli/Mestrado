@@ -3,6 +3,9 @@
 
 using namespace std;
 
+snet::DisjointSet::DisjointSet() {
+}
+
 snet::DisjointSet::DisjointSet(int n) {
 	sets = vector<int> (n);
 	for (int i = 0; i < sets.size(); ++i) {
@@ -51,5 +54,5 @@ void snet::DisjointSet::validate(int i) {
 
 int snet::DisjointSet::countSet(int A) {
 	validate(A);
-	return -sets[A];
+	return -sets[find(A)];
 }

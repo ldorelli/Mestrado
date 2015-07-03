@@ -1,0 +1,17 @@
+strict digraph {
+"cutte_imas" -> "FaturMiraj14"
+"fitrawanda79" -> "HendriKamto16"
+"andrinazhafif" -> "DavidBrigata03"
+"nurel511" -> "DavidBrigata13"
+"KomangArifin" -> "FaturMiraj14"
+"agosharahap" -> "HendriKamto16"
+"DesDr46" -> "FaturMiraj14"
+"amel_amelia98" -> "DavidBrigata03"
+"fahmijuniar2" -> "DavidBrigata03"
+"Rika_Fitria15" -> "HendriKamto16"
+"fadel170" -> "DavidBrigata13"
+"marzuky_m" -> "FSallabina17"
+"eggirinaldi93" -> "DavidBrigata13"
+"cintya_alfian" -> "FSallabina17"
+"IdellDacruz" -> "FSallabina17"
+}
