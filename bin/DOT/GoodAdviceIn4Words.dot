@@ -1,7 +1,0 @@
-strict digraph {
-"Leabethy" -> "AnnieSilvie"
-"netflix" -> "AnnieSilvie"
-"netflix" -> "Evie1492"
-"freepeter" -> "AnnieSilvie"
-"_AutNihil" -> "Evie1492"
-}

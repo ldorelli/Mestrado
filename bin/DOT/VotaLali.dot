@@ -1,6 +1,0 @@
-strict digraph {
-"ftdlali" -> "CandeLEspos"
-"laliespos" -> "CandeLEspos"
-"laliespos" -> "BelenLuna11"
-"SonadorasDeLali" -> "BelenLuna11"
-}
